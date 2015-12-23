@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>D:\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\opencv\build\include;F:\git\ComputerVision\ComputerVision;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -90,24 +90,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FrmChooseImage.cpp" />
-    <ClCompile Include="MyForm1.cpp" />
+    <ClCompile Include="FrmHistogramEqualisation.cpp" />
+    <ClCompile Include="FrmHistogramMatching.cpp" />
+    <ClCompile Include="FrmMain.cpp" />
+    <ClCompile Include="Histogram.cpp" />
     <ClCompile Include="Program.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FrmChooseImage.h">
+    <ClInclude Include="FrmHistogramEqualisation.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="MyForm1.h">
+    <ClInclude Include="FrmHistogramMatching.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FrmMain.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Histogram.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FrmChooseImage.resx">
-      <DependentUpon>FrmChooseImage.h</DependentUpon>
+    <EmbeddedResource Include="FrmHistogramEqualisation.resx">
+      <DependentUpon>FrmHistogramEqualisation.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyForm1.resx">
-      <DependentUpon>MyForm1.h</DependentUpon>
+    <EmbeddedResource Include="FrmHistogramMatching.resx">
+      <DependentUpon>FrmHistogramMatching.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
