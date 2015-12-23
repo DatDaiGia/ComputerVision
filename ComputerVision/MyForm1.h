@@ -568,31 +568,12 @@ namespace ComputerVision {
 
 		Void equalizeHistogram(IplImage* originImg, IplImage* processedImg) {
 			float LUT[256];
-			int MN = 0;
 			int step = originImg->widthStep;
 			int channels = originImg->nChannels;
 			uchar* input = (uchar *)originImg->imageData;
 			uchar* output = (uchar *)processedImg->imageData;
 
-			for (int i = 0; i < 256; i++) {
-				LUT[i] = 0.0;
-			}
-
-			for (int i = 0; i < originImg->height; i++) {
-				for (int j = 0; j < originImg->width; j++) {
-					LUT[input[i*step + j*channels]] += 1;
-				}
-			}
-
-			MN = originImg->width*originImg->height;
-
-			for (int i = 1; i < 256; i++) {
-				LUT[i] += LUT[i - 1];
-			}
-
-			for (int i = 0; i < 256; i++) {
-				LUT[i] = (LUT[i] / MN) * 255;
-			}
+			calculateS(originImg, LUT);
 
 			for (int i = 0; i < originImg->height; i++) {
 				for (int j = 0; j < originImg->width; j++) {
@@ -601,8 +582,75 @@ namespace ComputerVision {
 			}
 		}
 
-		Void matchHistogram(IplImage* originImg, IplImage* processedImg) {
+		Void matchHistogram(IplImage* originImg, IplImage* templateImg, IplImage* processedImg) {
+			float s[256];
+			float g[256];
+			float LUT[256];
 
+			uchar* originData = (uchar *)originImg->imageData;
+			uchar* processedData = (uchar *)processedImg->imageData;
+
+			int step = originImg->widthStep;
+			int channels = originImg->nChannels;
+
+			for (int i = 0; i < 256; i++){
+				LUT[i] = 0.0;
+			}
+
+			calculateS(originImg, s);
+			calculateS(templateImg, g);
+
+			// matching
+			int currentIndex = 0;
+			for (int i = 0; i < 256; i++) {
+				bool matched = false;
+				while (!matched)
+				{
+					if (s[i] <= g[currentIndex]) {
+						LUT[i] = currentIndex;
+						matched = true;
+					}
+					else {
+						currentIndex++;
+						if (currentIndex>255) {
+							break;
+						}
+					}
+				}
+			}
+
+			// make image
+			for (int i = 0; i < originImg->height; i++) {
+				for (int j = 0; j < originImg->width; j++) {
+					processedData[i*step + j*channels] = LUT[originData[i*step + j*channels]];
+				}
+			}
+		}
+
+		Void calculateS(IplImage* image, float LUT[]) {
+			int step = image->widthStep;
+			int channels = image->nChannels;
+			uchar* input = (uchar *)image->imageData;
+
+			for (int i = 0; i < 256; i++) {
+				LUT[i] = 0.0;
+			}
+
+			for (int i = 0; i < image->height; i++) {
+				for (int j = 0; j < image->width; j++) {
+					LUT[input[i*step + j*channels]] += 1;
+				}
+			}
+
+			int MN = image->width*image->height;
+
+			for (int i = 1; i < 256; i++) {
+				LUT[i] += LUT[i - 1];
+			}
+
+			for (int i = 0; i < 256; i++) {
+				LUT[i] = (LUT[i] / MN) * 255;
+			}
 		}
 
 		Void showHistogram(IplImage* img, PictureBox^ pictureBox) {
@@ -640,9 +688,16 @@ namespace ComputerVision {
 		Void OnClick(System::Object ^sender, System::EventArgs ^e) {
 			IplImage* templateImg = frmChooseImg->GetTemplateImage();
 			frmChooseImg->Close();
-			IplImage* image2 = cvCreateImage(cvGetSize(originImg), originImg->depth, originImg->nChannels);
-			cvMatchTemplate(originImg, templateImg, image2, CV_TM_CCORR);
-			showGrayImage(image2, picbxProcessedImage2);
+
+			// matching without using opencv functions
+			IplImage* result1 = cvCreateImage(cvGetSize(originImg), originImg->depth, originImg->nChannels);
+			matchHistogram(originImg, templateImg, result1);
+
+			showGrayImage(result1, picbxProcessedImage1);
+			showHistogram(result1, picbxProcessedHistogram1);
+
+			// matching by using opencv functions
+			IplImage* result2 = cvCreateImage(cvGetSize(originImg), originImg->depth, originImg->nChannels);
 		}
-};
+	};
 }
