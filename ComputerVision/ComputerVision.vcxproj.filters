@@ -18,35 +18,47 @@
     <ClCompile Include="Program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyForm1.cpp">
+    <ClCompile Include="FrmHistogramEqualisation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrmChooseImage.cpp">
+    <ClCompile Include="FrmMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrmHistogramMatching.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Histogram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyForm1.h">
+    <ClInclude Include="Histogram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FrmChooseImage.h">
+    <ClInclude Include="FrmHistogramEqualisation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmHistogramMatching.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmCompare.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmEqualization.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMatching.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
     <EmbeddedResource Include="MyForm1.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChooseImage.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHistogramEqualisation.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmHistogramMatching.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>
